@@ -4,13 +4,13 @@ import { TodoSearch } from './components/TodoSearch';
 import { CreateTodoButton } from './components/CreateTodoButton';
 import { TodoList } from './components/TodoList';
 import { TodoItem } from './components/TodoItem';
-import './App.css';
+// import './App.css';
 
 const todos = [
-  { text: 'hablar al medico', complete: false },
-  { text: 'comer fruta', complete: false },
-  { text: 'correr 5 k', complete: false },
-  { text: 'Terminar modelo prologic', complete: false }]
+  { text: 'hablar al medico', completed: true },
+  { text: 'comer fruta', completed: false },
+  { text: 'correr 5 k', completed: true },
+  { text: 'Terminar modelo prologic', completed: false }]
 
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
       
       <TodoList >
         {todos.map(todo => (
-          <TodoItem key={todo.text} text={todo.text} />
+          <TodoItem key={todo.text} text={todo.text} completed={todo.completed} />
         ))}
 
       </TodoList>
