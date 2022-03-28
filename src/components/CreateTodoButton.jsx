@@ -9,7 +9,7 @@ function CreateTodoButton(){
     return(
         <button className='createTodoButton'
         onClick={onClickCreateTodo}>
-            <i class='bx bx-plus' ></i>
+            <i className='bx bx-plus' ></i>
         </button>
     );
 }
