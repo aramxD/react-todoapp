@@ -6,15 +6,40 @@ import { TodoList } from './components/TodoList';
 import { TodoItem } from './components/TodoItem';
 // import './App.css';
 
-const todosDefault = [
-  { text: 'Crear tu primer To Do..', completed: false },
-  { text: 'Eliminar el primer To Do..', completed: false },
-  { text: 'Correr 5 k', completed: false },
-  { text: 'Comer frutas y verduras', completed: false }]
+// const todosDefault = [
+//   { text: 'Crear tu primer To Do..', completed: false },
+//   { text: 'Eliminar el primer To Do..', completed: false },
+//   { text: 'Correr 5 k', completed: false },
+//   { text: 'Comer frutas y verduras', completed: false }]
 
+
+function useLocalStorage(itemName, initialValue){
+  const localStorageItem = localStorage.getItem(itemName);
+  let parsedItem;
+
+  if(!localStorageItem){
+    localStorage.setItem(itemName, JSON.stringify(initialValue));
+    parsedItem = initialValue;
+  }else{
+    parsedItem = JSON.parse(localStorageItem)
+  }
+
+  const [item, setItem] = React.useState(parsedItem)
+    
+  
+  //Aqui va la logica para conectar localStorage al save / delete
+  const saveItem = (newItem) =>{
+    const stringifiedItem = JSON.stringify(newItem)
+    localStorage.setItem(itemName, stringifiedItem)
+    setItem(newItem)
+  } 
+  return [
+    item, saveItem
+  ]
+}
 
 function App() {
-  const [todos, setTodos] = React.useState(todosDefault)
+  const [todos, saveTodos] = useLocalStorage('TODOS_V1', [])
   const [searchValue, setSearchValue] = React.useState('')
 
   //funcion para contar los elementos completados
@@ -35,6 +60,8 @@ function App() {
   }
 
 
+
+
   //Aqui va la logica para el boton de completado
   const completeTodo = (text) =>{
     const todoIndex = todos.findIndex(todo => todo.text === text); //Identifica el index del elemento a completar
@@ -44,7 +71,7 @@ function App() {
     }else{
       newTodos[todoIndex].completed = true // Cambia la variable completed a true
     }
-    setTodos(newTodos) //envio nuevi listado de todos
+    saveTodos(newTodos) //envio nuevi listado de todos
   }
 
     //Aqui va la logica para el boton de completado
@@ -53,7 +80,7 @@ function App() {
       const newTodos = [...todos] //Crea una nueva variable con todos los To Do's
       newTodos.splice(todoIndex, 1)// Elimina el elemento
       
-      setTodos(newTodos) //envio nuevi listado de todos
+      saveTodos(newTodos) //envio nuevi listado de todos
     }
 
 
