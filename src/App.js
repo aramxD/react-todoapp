@@ -5,6 +5,7 @@ import { TodoSearch } from './components/TodoSearch';
 import { CreateTodoButton } from './components/CreateTodoButton';
 import { TodoList } from './components/TodoList';
 import { TodoItem } from './components/TodoItem';
+import { Modal } from './components/Modal'
 
 // const todosDefault = [
 //   { text: 'Crear tu primer To Do..', completed: false },
@@ -21,7 +22,6 @@ function App() {
       <React.Fragment>
         <TodoCounter />
 
-
         <TodoSearch />
 
         <TodoContext.Consumer>
@@ -31,7 +31,9 @@ function App() {
             searchedTodos,
             completeTodo,
             deleteTodo,
-          }) => (
+            openModal,
+            setOpenModal
+          }) => ( <>
             <TodoList >
               {error && <p>Hay un error, reinicia</p>}
               {loading && <p>Estamos cargando, no desesperes...</p>}
@@ -47,14 +49,27 @@ function App() {
               ))}
 
             </TodoList>
-          )}
+          
+
+            {!!openModal && (
+              <Modal>
+              <p>Teletransportacion!!</p>
+            </Modal>
+            )}
+            
+            <CreateTodoButton 
+              setOpenModal={setOpenModal}
+              />
+            </>
+        )}
         </TodoContext.Consumer>
 
-
-        <CreateTodoButton />
+        
 
       </React.Fragment>
     </TodoProvider>
+
+
   );
 }
 
