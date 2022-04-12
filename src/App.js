@@ -5,6 +5,7 @@ import { TodoSearch } from './components/TodoSearch';
 import { CreateTodoButton } from './components/CreateTodoButton';
 import { TodoList } from './components/TodoList';
 import { TodoItem } from './components/TodoItem';
+import { TodoForm } from './components/TodoForm';
 import { Modal } from './components/Modal'
 
 // const todosDefault = [
@@ -53,7 +54,7 @@ function App() {
 
             {!!openModal && (
               <Modal>
-              <p>Teletransportacion!!</p>
+              <TodoForm />
             </Modal>
             )}
             

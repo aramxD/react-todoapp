@@ -13,7 +13,8 @@ function TodoProvider(props) {
 
   const [searchValue, setSearchValue] = React.useState('')
   const [openModal, setOpenModal] = React.useState(false);
-
+  
+  
   //funcion para contar los elementos completados
   const completedTodos = todos.filter(todo => !!todo.completed).length;
   const totalTodos = todos.length;
@@ -45,6 +46,15 @@ function TodoProvider(props) {
     }
     saveTodos(newTodos) //envio nuevi listado de todos
   }
+    //Aqui va la logica para el crear un Todo
+    const createTodo = (text) => {
+      const newTodos = [...todos] //Crea una nueva variable con todos los To Do's
+      newTodos.push({
+        completed:false,
+        text,
+      })
+      saveTodos(newTodos) //envio nuevi listado de todos
+    }
 
   //Aqui va la logica para el boton de completado
   const deleteTodo = (text) => {
@@ -62,6 +72,7 @@ function TodoProvider(props) {
       error,
       totalTodos,
       completedTodos,
+      createTodo,
       searchValue,
       setSearchValue,
       searchedTodos,
